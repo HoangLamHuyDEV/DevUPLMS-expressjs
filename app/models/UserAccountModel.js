@@ -11,6 +11,6 @@ class UserAccountModel {
       this.status = status;
     }
   }
-  
+
   module.exports = UserAccountModel;
   

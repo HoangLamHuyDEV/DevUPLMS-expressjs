@@ -32,6 +32,10 @@ class GenerateAccessToken {
     );
   }
 
+  static GenerateAccessTokenForLesson(){
+
+  }
+
 
 }
 

@@ -7,8 +7,27 @@ const { checkPreferences } = require("joi");
 const bcrypt = require("bcrypt");
 
 class UserAccountController {
+    static async getAllUser(req,res) {
+        const result = await UserAccountInforRepository.getAllUser();
+        if(result.length > 0) {
+            ReturnResponseUtil.returnResponse(
+                res,
+                200,
+                true,
+                "Get All User Accounts Successfully",
+                result
+            );
+        }else {
+            ReturnResponseUtil.returnResponse(
+                res,
+                404,
+                false,
+                "No records found at the moment"
+            );
+        }
+    }
     static async getUserBySchool(req,res) {
-        const school_id = req.body.schoolId;
+        const school_id = req.params.schoolId;
         const result = await UserAccountInforRepository.getUserBySchoolId(school_id);
         if(result.length > 0) {
             ReturnResponseUtil.returnResponse(

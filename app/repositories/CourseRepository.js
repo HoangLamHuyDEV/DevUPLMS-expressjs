@@ -1,4 +1,5 @@
-const CourseModel = require("../models/CourseModel");const connection = require("../configs/MySQLConnect");
+const CourseModel = require("../models/CourseModel");
+const connection = require("../configs/MySQLConnect");
 
 class CourseRepository{
     static async InsertCourse(name, date_published, describe, status){
@@ -11,6 +12,26 @@ class CourseRepository{
     static async GetAllCourse() {
         const query = `SELECT * FROM courses`;
         const params = [];
+        const result = await connection.query(query, params);
+        const courses = [];
+    
+        for (const row of result) {
+            const course = new CourseModel(
+                row.id, row.name, row.date_published, row.describe, row.status
+            );
+            courses.push(course);
+        }
+    
+        if (courses.length === 0) {
+            return null;
+        }
+    
+        return courses;
+    }
+
+    static async GetCourseById(id) {
+        const query = `SELECT * FROM courses WHERE id = ?`;
+        const params = [id];
         const result = await connection.query(query, params);
         const courses = [];
     

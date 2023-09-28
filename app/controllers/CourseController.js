@@ -44,7 +44,7 @@ class CourseController{
         }
     }
     static async GetAllCourses(req,res){
-        // try{
+        try{
             const result =  await CourseRepository.GetAllCourse();
             ReturnResponseUtil.returnResponse(
                 res,
@@ -53,14 +53,35 @@ class CourseController{
                 "Get all courses",
                 result
             )
-        // }catch(error){
-        //     ReturnResponseUtil.returnResponse(
-        //         res,
-        //         402,
-        //         false,
-        //         error
-        //     )
-        // }
+        }catch(error){
+            ReturnResponseUtil.returnResponse(
+                res,
+                402,
+                false,
+                error
+            )
+        }
+    }
+
+    static async GetCoursesById(req,res){
+        try{
+            const id = req.params.id;
+            const result =  await CourseRepository.GetCourseById(id);
+            ReturnResponseUtil.returnResponse(
+                res,
+                200,
+                true,
+                "Get all courses",
+                result
+            )
+        }catch(error){
+            ReturnResponseUtil.returnResponse(
+                res,
+                402,
+                false,
+                error
+            )
+        }
     }
 }
 

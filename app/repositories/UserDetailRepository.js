@@ -9,9 +9,16 @@ class UserAccountInforRepository {
         return result.insertId;
     }
 
+    static async getAllUser() {
+        const query = `SELECT * FROM accounts JOIN info_accounts ON accounts.infoAccount_id = info_accounts.id`;
+        const params = [];
+        const result = await connection.query(query,params);
+        return result;
+    }
+
 
     static async getUserBySchoolId(schoolId) {
-        const query = `SELECT * FROM accounts WHERE school_id = ?`;
+        const query = `SELECT * FROM accounts JOIN info_accounts ON accounts.infoAccount_id = info_accounts.id WHERE school_id = ?`;
         const params = [schoolId];
         const result = await connection.query(query,params);
         return result;

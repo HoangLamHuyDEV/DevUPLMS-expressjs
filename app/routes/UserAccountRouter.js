@@ -3,9 +3,10 @@ const { authorize } = require("../middlewares/authorizeMiddleware");
 const router = require("express").Router();
 const { authenticateToken } = require("../middlewares/authMiddleware");
 
-router.post("/bySchoolId",authenticateToken,authorize(["admin"]) ,UserAccountController.getUserBySchool);
-router.post("/update",authenticateToken,authorize(["admin","user"]),UserAccountController.UpdateUserAccountInfo);
-router.post("/changepassword",authenticateToken,authorize(["admin","user"]),UserAccountController.ChangePassword);
-router.post("/delete",authenticateToken,authorize(["admin"]),UserAccountController.DeleteUserAccountByUsername);
+router.get("/",authenticateToken,authorize(["admin"]),UserAccountController.getAllUser);
+router.get("/school_Id/:schoolId",authenticateToken,authorize(["admin"]) ,UserAccountController.getUserBySchool);
+router.put("/info",authenticateToken,authorize(["admin","user"]),UserAccountController.UpdateUserAccountInfo);
+router.put("/password",authenticateToken,authorize(["admin","user"]),UserAccountController.ChangePassword);
+router.delete("/",authenticateToken,authorize(["admin"]),UserAccountController.DeleteUserAccountByUsername);
 
 module.exports = router;
